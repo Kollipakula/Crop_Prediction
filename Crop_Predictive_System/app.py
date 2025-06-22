@@ -3,6 +3,11 @@ from flask_cors import CORS
 import joblib
 import numpy as np
 import google.generativeai as genai
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
@@ -12,7 +17,7 @@ model = joblib.load('crop_model1.pkl')
 label_encoder = joblib.load('label_encoder.pkl')
 
 # Configure the Google Gemini API
-API_KEY = 'AIzaSyAZSyUmAe_bveZMVdygPu_GR4PYvhT2DQw'
+API_KEY = os.environ.get('GEMINI_API_KEY')
 genai.configure(api_key=API_KEY)
 gemini_model = genai.GenerativeModel('gemini-1.5-flash')
 
